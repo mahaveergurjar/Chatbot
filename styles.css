@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    /* Black background for the entire page */
+    color: #fff;
+    /* White text color for contrast */
+    margin: 0;
+    padding: 0;
+}
+
+/* Chat Container */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #333;
+    /* Slightly lighter black for borders */
+    border-radius: 8px;
+    background-color: #222;
+    /* Dark gray background for the chat container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    /* Ensure no scroll bars on the container itself */
+}
+
+/* Chat Area */
+#chat {
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    /* Darker border for contrast */
+    overflow-y: auto;
+    /* Enable scrolling when content overflows */
+    scrollbar-width: none;
+    /* Hide scroll bar for Firefox */
+}
+
+/* Hide Scroll Bar for Webkit Browsers */
+#chat::-webkit-scrollbar {
+    display: none;
+    /* Hide scroll bar for Webkit browsers (Chrome, Safari) */
+}
+
+/* Input Container */
+#input-container {
+    display: flex;
+    border-top: 1px solid #333;
+    /* Darker border for contrast */
+    background-color: #111;
+    /* Even darker gray for input area */
+}
+
+/* Input Field */
+#input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    font-size: 16px;
+    background-color: #333;
+    /* Dark background for input field */
+    color: #fff;
+    /* White text color in the input field */
+}
+
+/* Send Button */
+#send-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0;
+    background-color: #007bff;
+    /* Bright blue for the send button */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Send Button Hover Effect */
+#send-button:hover {
+    background-color: #0056b3;
+    /* Darker blue for hover effect */
+}
+
+/* User and Bot Messages */
+#chat div {
+    margin-bottom: 10px;
+}
+
+#chat .user {
+    text-align: right;
+    font-weight: bold;
+    color: #00ff00;
+    /* Green color for user messages */
+}
+
+#chat .bot {
+    text-align: left;
+    color: #00ffff;
+    /* Light blue color for bot messages */
+}
+
+/* Code Formatting */
+.code-block {
+    display: block;
+    padding: 10px;
+    background-color: #444;
+    /* Dark background for code blocks */
+    border-radius: 4px;
+    font-family: monospace;
+    color: #f8f8f2;
+    /* Light color for code text */
+    white-space: pre-wrap;
+    /* Preserve whitespace in code */
+    overflow-x: auto;
+    /* Allow horizontal scrolling if needed */
+    border: 1px solid #555;
+    /* Border around code block */
+}
