@@ -45,10 +45,10 @@ To set up and run the chat application locally, follow these steps:
 
 4. **Add Your API Key**
 
-   After generating your API key, you need to add it to the `renderer.js` file:
+   After generating your API key, you need to add it to the `Config.js` file:
 
-   1. Open the `renderer.js` file.
-   2. Replace the placeholder `YOUR_API_KEY_HERE` with your actual API key:
+   1. Open the `config.js` file.
+   2. Replace the placeholder `Your_API_Key` with your actual API key:
 
 5. **Run the Application**
 

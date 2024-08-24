@@ -1,15 +1,16 @@
 // main.js
 const { app, BrowserWindow, screen } = require("electron");
+const settings = require("./config");
 
 function createWindow() {
   const { width: screenWidth, height: screenHeight } =
     screen.getPrimaryDisplay().workAreaSize;
 
   const mainWindow = new BrowserWindow({
-    width: 500,
-    height: 800,
-    x: 10,
-    y: screenHeight - 810,
+    width: settings.width,
+    height: settings.height,
+    x: settings.horizontalPosition==='left'? settings.horizontalGap : screenWidth - settings.horizontalGap,
+    y: settings.horizontalPosition==='top'? settings.verticalGap : screenWidth - settings.verticalGap,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
