@@ -8,8 +8,8 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 500,
     height: 800,
-    x: screenWidth - 500,
-    y: screenHeight - 800,
+    x: 10,
+    y: screenHeight - 810,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -35,3 +35,4 @@ app.on("activate", () => {
 });
 
 app.disableHardwareAcceleration();
+
