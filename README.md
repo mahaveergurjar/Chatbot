@@ -2,7 +2,7 @@
 
 ## Overview
 
-This chat application allows users to send messages and receive responses from a language model API. It supports code formatting, explanations, and link formatting. The application uses `axios` for API requests and displays chat messages in a styled interface.
+This chat application allows users to send messages and receive responses from a language model API. It supports code formatting, explanations, and link formatting. The application uses `GoogleGenerativeAI` for API requests and displays chat messages in a styled interface.
 
 ## Features
 
