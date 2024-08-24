@@ -1,13 +1,18 @@
 // main.js
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, screen } = require("electron");
 
 function createWindow() {
+  const { width: screenWidth, height: screenHeight } =
+    screen.getPrimaryDisplay().workAreaSize;
+
   const mainWindow = new BrowserWindow({
     width: 500,
     height: 800,
+    x: screenWidth - 500,
+    y: screenHeight - 800,
     webPreferences: {
-      nodeIntegration: true, // Ensure this is set if you need nodeIntegration
-      contextIsolation: false, // Set to true if using contextBridge
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
