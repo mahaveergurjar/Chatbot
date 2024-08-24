@@ -1,4 +1,5 @@
-// preload.js
-window.addEventListener("DOMContentLoaded", () => {
-  // Expose any APIs you want to use in the renderer process
+const { contextBridge, ipcRenderer } = require("electron");
+
+contextBridge.exposeInMainWorld("electron", {
+  getBotResponse: (prompt) => ipcRenderer.invoke("get-bot-response", prompt),
 });
