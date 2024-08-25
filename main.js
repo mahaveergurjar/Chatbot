@@ -3,14 +3,26 @@ const { app, BrowserWindow, screen } = require("electron");
 const settings = require("./config");
 
 function createWindow() {
-  const { width: screenWidth, height: screenHeight } =
-    screen.getPrimaryDisplay().workAreaSize;
+  const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
+
+  const gaps = {
+    x: settings.horizontalPosition==='left'? settings.horizontalGap : screenWidth - settings.width - settings.horizontalGap,
+    y: settings.verticalPosition==='top'? settings.verticalGap : screenHeight - settings.height - settings.verticalGap,
+  }
+  
+  if (settings.horizontalPosition === 'center') {
+    gaps.x = (screenWidth - settings.width) / 2;
+  }
+  if (settings.verticalPosition === 'center') {
+    gaps.y = (screenHeight - settings.height) / 2;
+  }
+
 
   const mainWindow = new BrowserWindow({
     width: settings.width,
     height: settings.height,
-    x: settings.horizontalPosition==='left'? settings.horizontalGap : screenWidth - settings.horizontalGap,
-    y: settings.horizontalPosition==='top'? settings.verticalGap : screenWidth - settings.verticalGap,
+    x: Math.floor(gaps.x),
+    y: Math.floor(gaps.y),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
