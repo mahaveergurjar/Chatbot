@@ -10,6 +10,9 @@ This chat application allows users to send messages and receive responses from a
 - **Code Formatting:** Formats code blocks with syntax highlighting.
 - **Explanation Formatting:** Provides clear and structured explanations.
 - **Link Formatting:** Automatically converts URLs into clickable links.
+- **Auto Focus:** Auto foucs on input so fast to type.
+- **Position:** App screen position changing option .
+- **Styled Interface:** Displays chat messages in a visually appealing way.
 - **Dark Theme:** The application uses a dark theme for better readability in low-light environments.
 
 ## Installation
@@ -53,3 +56,12 @@ To set up and run the chat application locally, follow these steps:
 5. **Run the Application**
 
    `npm start`
+
+
+### Screenshot
+
+
+![Full Screen ChatBot](./screenshot/image1.png)
+
+
+![Compact View ChatBot](./screenshot/image2.png)
