@@ -50,39 +50,30 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    max-width: 600px;
+    width: 400px;
     margin: auto;
 }
 
 /* Input Field */
 #input {
     flex: 1;
-    /* Ensures the input field takes up available space */
     padding: 12px;
     border: 1px solid #444;
     border-radius: 20px;
-    /* Matching rounded corners */
     background-color: #333;
-    /* Background color for better contrast */
     color: #e0e0e0;
     font-size: 16px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
     margin-right: 10px;
     resize: none;
-    /* Prevent resizing */
     outline: none;
-    /* Remove default focus outline */
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-
 #input:focus {
     background-color: #444;
-    /* Slightly lighter background on focus */
     border-color: #2979ff;
-    /* Highlight border color on focus */
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.5);
-    /* Enhanced shadow on focus */
 }
 
 /* Send Button */
@@ -94,110 +85,141 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 20px;
-    /* Match the rounded corners */
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    /* Subtle shadow for depth */
 }
 
 #send-button:hover {
     background-color: #1c54b2;
     transform: scale(1.05);
-    /* Slight scale effect on hover */
 }
 
 #send-button:active {
     background-color: #1a3a80;
-    /* Darker color when pressed */
     transform: scale(0.98);
-    /* Slight scale effect when pressed */
 }
 
-/* Chat Container */
+/* Chat Messages */
 #chat {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 15px;
-    padding-bottom: 80px;
+    padding: 20px;
     overflow-y: auto;
-    border-bottom: 1px solid #333;
 }
 
 /* User Messages */
-#chat .user {
+.user {
     align-self: flex-end;
-    /* Align user messages to the right */
     background-color: #2979ff;
-    color: #fff;
-    border-radius: 20px 20px 0 20px;
-    padding: 12px;
-    margin: 8px 0;
-    max-width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 18px 18px 0 18px;
+    margin: 5px 0;
+    max-width: 75%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    line-height: 1.5;
 }
 
 /* Bot Messages */
-#chat .bot {
+.bot {
     align-self: flex-start;
-    /* Align bot messages to the left */
     background-color: #333;
-    color: #e0e0e0;
-    border-radius: 20px 20px 20px 0;
-    padding: 12px;
-    margin: 8px 0;
-    max-width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 18px 18px 18px 0;
+    margin: 5px 0;
+    max-width: 75%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    line-height: 1.5;
 }
 
-/* Code Formatting */
-.code-block {
-    background-color: #444;
-    border: 1px solid #555;
-    padding: 10px;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    border-radius: 12px;
-    color: #f8f8f2;
-    font-family: monospace;
-    font-size: 14px;
-}
-
-/* Code Block Container */
+/* Code Block Styles */
 .code-block-container {
     position: relative;
-    margin-bottom: 10px;
-    /* Space between code blocks */
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+.code-block {
+    padding: 12px;
+    background-color: #282828;
+    border-radius: 5px;
+    color: #eee;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    margin: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
 }
 
 .copy-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #2979ff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+    top: 8px;
+    right: 8px;
     padding: 5px 10px;
+    background-color: #2979ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    /* Subtle shadow for depth */
+    font-size: 12px;
 }
 
 .copy-button:hover {
     background-color: #1c54b2;
-    transform: scale(1.05);
-    /* Slight scale effect on hover */
 }
 
-.copy-button:active {
-    background-color: #1a3a80;
-    transform: scale(0.98);
-    /* Slight scale effect when pressed */
+a {
+    color: #2979ff;
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
 
+/* Typing Indicator */
+.typing-indicator {
+    display: inline-block;
+    font-size: 14px;
+    color: #888;
+}
 
+.typing-indicator::after {
+    content: '...';
+    display: inline-block;
+    animation: dots 1s steps(5, end) infinite;
+}
 
+@keyframes dots {
+
+    0%,
+    20% {
+        content: '...';
+    }
+
+    40% {
+        content: '..';
+    }
+
+    60% {
+        content: '.';
+    }
+
+    80%,
+    100% {
+        content: '';
+    }
+}
+
+.hidden {
+    visibility: hidden;
+}
