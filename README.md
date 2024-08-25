@@ -11,10 +11,10 @@ This chat application allows users to send messages and receive responses from a
 - **Code Formatting:** Formats code blocks with syntax highlighting.
 - **Explanation Formatting:** Provides clear and structured explanations.
 - **Link Formatting:** Automatically converts URLs into clickable links.
-- **Auto Focus:** Auto foucs on input so fast to type.
+- **Auto Focus:** Autofocus on input so fast to type.
 - **Copy:** Code copy option.
-- **Position:** App screen position changing option .
-- **Styled Interface:** Displays chat messages in a visually appealing way.
+- **Position:** App screen position changing option.
+- **Styled Interface:** Displays chat messages visually appealingly.
 - **Dark Theme:** The application uses a dark theme for better readability in low-light environments.
 
 ## Installation
