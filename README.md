@@ -1,4 +1,4 @@
-###### *<div align="right"><sub>// design by mahaveeer</sub></div>*
+###### *<div align="right"><sub>// design by [Mahaveer](https://github.com/mahaveergurjar)</sub></div>*
 # Desktop ChatBot Application
 
 ## Overview
@@ -12,6 +12,7 @@ This chat application allows users to send messages and receive responses from a
 - **Explanation Formatting:** Provides clear and structured explanations.
 - **Link Formatting:** Automatically converts URLs into clickable links.
 - **Auto Focus:** Auto foucs on input so fast to type.
+- **Copy:** Code copy option.
 - **Position:** App screen position changing option .
 - **Styled Interface:** Displays chat messages in a visually appealing way.
 - **Dark Theme:** The application uses a dark theme for better readability in low-light environments.
@@ -59,10 +60,18 @@ To set up and run the chat application locally, follow these steps:
    `npm start`
 
 
-### Screenshot
+###### *<div align="right"><sub>//credited to [Tarush](https://github.com/TarushGupta23)</sub></div>*
+### Position Customization
+
+You can adjust the app screen size and position in `config.js`:
+
+- **X Axis:** Set to `left`, `right`, or `center`.
+- **Y Axis:** Set to `top`, `bottom`, or `center`.
+- **Gap:** Adjust the screen gap as needed.
 
 
 ![Full Screen ChatBot](./screenshot/image1.png)
 
+### Screenshot
 
 ![Compact View ChatBot](./screenshot/image2.png)
