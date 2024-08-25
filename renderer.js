@@ -1,10 +1,27 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { API_KEY } = require("../config");
+const { API_KEY } = require("./config");
 
 // Initialize GoogleGenerativeAI with the API key
-const apiKey = API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
+const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const inputElement = document.getElementById("input");
+
+  // Focus on the input field when the page loads
+  inputElement.focus();
+
+  inputElement.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      sendMessage();
+    }
+  });
+
+  document.getElementById("send-button").addEventListener("click", () => {
+    sendMessage();
+  });
+});
 
 async function generateContent(prompt) {
   try {
@@ -27,16 +44,29 @@ async function generateContent(prompt) {
 
 function sendMessage() {
   const inputElement = document.getElementById("input");
-  const userInput = inputElement.value;
+  const userInput = inputElement.value.trim(); // Trim to remove unnecessary spaces
+  if (userInput === "") return; // Prevent sending empty messages
+
   inputElement.value = "";
 
   const chatDiv = document.getElementById("chat");
   chatDiv.innerHTML += `<div class="user">User: ${escapeHTML(userInput)}</div>`;
   chatDiv.scrollTop = chatDiv.scrollHeight;
 
+  // Show typing indicator
+  const typingIndicator = document.createElement("div");
+  typingIndicator.classList.add("bot", "typing-indicator");
+  typingIndicator.innerText = "typing";
+  chatDiv.appendChild(typingIndicator);
+  chatDiv.scrollTop = chatDiv.scrollHeight;
+
   generateContent(userInput)
     .then((botMessage) => {
       const formattedMessage = formatMessage(botMessage);
+
+      // Remove typing indicator
+      chatDiv.removeChild(typingIndicator);
+
       const responseDiv = document.createElement("div");
       responseDiv.classList.add("bot");
       responseDiv.innerHTML = formattedMessage; // Set the formatted message directly
@@ -48,17 +78,6 @@ function sendMessage() {
       console.error("API request error:", error);
     });
 }
-
-document.getElementById("input").addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    sendMessage();
-  }
-});
-
-document.getElementById("send-button").addEventListener("click", () => {
-  sendMessage();
-});
 
 function formatMessage(text) {
   let formattedText = formatBoldText(text);
