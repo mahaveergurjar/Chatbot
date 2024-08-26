@@ -60,7 +60,7 @@ To set up and run the chat application locally, follow these steps:
    `npm start`
 
 
-###### *<div align="right"><sub>//credited to [Tarush](https://github.com/TarushGupta23)</sub></div>*
+###### *<div align="right"><sub>//credited to [Tarush Gupta](https://github.com/TarushGupta23)</sub></div>*
 ### Position Customization
 
 You can adjust the app screen size and position in `config.js`:
