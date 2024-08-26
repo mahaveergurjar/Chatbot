@@ -196,3 +196,37 @@ body {
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
+
+/* Typing Indicator */
+.typing-indicator {
+    display: inline-block;
+    font-size: 14px;
+    color: #888;
+}
+
+.typing-indicator::after {
+    content: '...';
+    display: inline-block;
+    animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+
+    0%,
+    20% {
+        content: '...';
+    }
+
+    40% {
+        content: '..';
+    }
+
+    60% {
+        content: '.';
+    }
+
+    80%,
+    100% {
+        content: '';
+    }
+}
