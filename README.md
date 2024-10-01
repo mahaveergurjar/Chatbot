@@ -1,4 +1,4 @@
-![Screenshot from 2024-10-01 20-19-33](https://github.com/user-attachments/assets/e5f9e18a-9e0c-4f49-8455-f2e708d79df5)###### *<div align="right"><sub>// design by [Mahaveer](https://github.com/mahaveergurjar)</sub></div>*
+ *<div align="right"><sub>// design by [Mahaveer](https://github.com/mahaveergurjar)</sub></div>*
 # Desktop ChatBot Application
 
 ## Overview
