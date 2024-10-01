@@ -15,7 +15,7 @@ This chat application allows users to send messages and receive responses from a
 - **Copy:** Code copy option.
 - **Position:** App screen position changing option.
 - **Styled Interface:** Displays chat messages visually appealingly.
-- **Dark Theme:** The application uses a dark theme for better readability in low-light environments.
+- **Dark & Light Theme:** The application uses a dark theme for better readability in low-light environments and a light one provides better visibility in bright environments and creates a clean, minimalistic look that reduces eye strain in well-lit conditions. 
 
 ## Installation
 
@@ -78,9 +78,17 @@ You can adjust the app screen size and position in `config.js`:
 - **Gap:** Adjust the screen gap as needed.
 
 
+
 <!-- ![Full Screen ChatBot](./screenshot/image1.png) -->
+
 
 ### Screenshot
 
 ![Compact View ChatBot](./screenshot/image2.png)
 
+###### *<div align="right"><sub>//credited to [Alok](https://github.com/Pseudophoenix)</sub></div>*
+### UI After Theme Button Added
+![Light Theme UI Screenshot](https://github.com/user-attachments/assets/890d6fce-3406-4a41-9d14-955717b4c2a0)
+![Dark Theme UI Screenshot](https://github.com/user-attachments/assets/0bd44c18-ba41-45a6-b790-5ed1007fdc83)
+
+**Description**:The Button on the top right corner has an `evenListener` attached on click and switches between dark and light by changing the path of the image that is the `src` attribut of `img` tag.

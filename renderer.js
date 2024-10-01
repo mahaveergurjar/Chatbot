@@ -1,7 +1,13 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { API_KEY } = require("./config");
 
+
 let selectedImage = null; // Global variable to store the selected image
+
+const themeButton = document.getElementById('theme-button');
+const themeIcon = document.getElementById('theme-icon');
+
+
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -44,6 +50,7 @@ document.getElementById('remove-image').addEventListener('click', () => {
   document.getElementById("image-input").value = '';
 });
 
+
 function fileToGenerativePart(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -60,6 +67,26 @@ function fileToGenerativePart(file) {
     reader.readAsDataURL(file);
   });
 }
+
+
+// Image paths for light and dark mode icons
+const lightModeIcon = 'assets/theme-button/images/light-mode.png';
+const darkModeIcon = 'assets/theme-button/images/dark-mode.png';
+
+// Adding click eventListener to theme-button as 
+themeButton.addEventListener('click', function() {
+    // Toggle the "light-theme" class on the body
+    document.body.classList.toggle('light-theme');
+    
+    // Swap the image based on the active theme
+    if (document.body.classList.contains('light-theme')) {
+        themeIcon.src = darkModeIcon;  // Switch to dark mode icon
+    } else {
+        themeIcon.src = lightModeIcon;  // Switch to light mode icon
+    }
+});
+
+
 
 async function generateContent(prompt) {
   try {

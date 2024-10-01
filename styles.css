@@ -21,7 +21,12 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-
+.container{
+    display: flex;
+    justify-content: space-between; /* Spaces the elements inside the container */
+    align-items: center; /* Vertically aligns items in the center */
+    width: 100%; /* Ensures the container takes up full width */       
+}
 /* Chat Container */
 #chat-container {
     display: flex;
@@ -131,7 +136,25 @@ body {
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
-
+/*Theme Button Added*/
+#theme-button {
+    width: 40px;
+    height: 40px;
+    background-color:#f5ac54;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: 10px;
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    cursor: pointer;
+}
+/*Image inside the theme button */
+#theme-button img{
+	height:70%;
+	width:70%;
+	object-fit: cover; 
+}
 /* Chat Container */
 #chat {
     display: flex;
@@ -283,3 +306,70 @@ body {
     height: 90px;
     width: 90px;
   }
+
+/* Styles for Light Theme Added */
+body.light-theme {
+    background-color: #ffffff; /* Light background */
+    color: #121212; /* Dark text */
+}
+
+body.light-theme #chat-container {
+    background-color: #f9f9f9; /* Light chat container */
+    border-color: #ddd;
+}
+body.light-theme .input-container {
+    background-color: #f9f9f9; /* Light chat container */
+    border-color: #ddd;
+}
+
+body.light-theme #input {
+    background-color: #e6e6e6;
+    color: #121212;
+    border-color: #ccc;
+}
+
+body.light-theme #input:focus {
+    background-color: #f0f0f0;
+    border-color: #2979ff;
+}
+
+body.light-theme #send-button {
+    background-color: #2979ff;
+    color: #fff;
+}
+
+body.light-theme #theme-button {
+    background-color: #8059d5; /* Light theme button */
+}
+
+body.light-theme #chat .user {
+    background-color: #2979ff;
+    color: #fff;
+}
+
+body.light-theme #chat .bot {
+    background-color: #c3c3c3	;
+    color: #121212;
+}
+
+body.light-theme .code-block {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    color: #121212;
+}
+
+body.light-theme .copy-button {
+    background-color: #2979ff;
+    color: #fff;
+}
+
+/* Scrollbar for Light Theme */
+body.light-theme ::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+
+body.light-theme ::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+
+

@@ -3,34 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Chat Application</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
+
   <body>
-    <div id="chat-container">
-      <div id="chat" class="chat"></div>
-      
+    <main id="chat-container" aria-labelledby="chat-heading">
+      <header>
+        <div class="container">
+          <h1 id="chat-heading">Chat Application</h1>
+          <!-- Added a class for the chat-heading and the theme button -->
+          <div id="theme-button">
+            <img
+              id="theme-icon"
+              src="assets/theme-button/images/light-mode.png"
+              alt="Theme Icon"
+            />
+          </div>
+        </div>
+      </header>
+
+      <section id="chat" class="chat" aria-live="polite" aria-atomic="true"></section>
+
       <div id="preview-container">
         <img id="preview-image" alt="Preview" />
         <button id="remove-image">&times;</button>
       </div>
 
-      
-      
-      <div class="input-container">
+      <section class="input-container">
         <i onclick="onImageIconClick()" class="fas fa-camera" id="image-icon"></i>
-        
-        <input type="file"  hidden id="image-input" accept="image/*" />
+        <input type="file" hidden id="image-input" accept="image/*" />
 
-        <input type="text" id="input" placeholder="Type a message..." />
+        <label for="input" class="visually-hidden">Type your message here</label>
+        <input
+          type="text"
+          id="input"
+          aria-label="Message input"
+          placeholder="Type a message..."
+          autofocus
+          autocomplete="off"
+          aria-required="true"
+        />
 
-        
-        <button id="send-button">Send</button>
-      </div>
-    </div>
+        <button id="send-button" aria-label="Send message">Send</button>
+      </section>
+    </main>
 
     <script src="renderer.js"></script>
   </body>
 </html>
+
