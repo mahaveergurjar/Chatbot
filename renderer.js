@@ -1,6 +1,10 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { API_KEY } = require("./config");
 
+// getting the theme-button id and theme-icon id from the DOM
+const themeButton = document.getElementById('theme-button');
+const themeIcon = document.getElementById('theme-icon');
+
 // Initialize GoogleGenerativeAI with the API key
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -23,13 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const themeButton = document.getElementById('theme-button');
-const themeIcon = document.getElementById('theme-icon');
+
 
 // Image paths for light and dark mode icons
 const lightModeIcon = 'assets/theme-button/images/light-mode.png';
 const darkModeIcon = 'assets/theme-button/images/dark-mode.png';
 
+// Adding click eventListener to theme-button as 
 themeButton.addEventListener('click', function() {
     // Toggle the "light-theme" class on the body
     document.body.classList.toggle('light-theme');
@@ -41,6 +45,8 @@ themeButton.addEventListener('click', function() {
         themeIcon.src = lightModeIcon;  // Switch to light mode icon
     }
 });
+
+
 async function generateContent(prompt) {
   try {
     console.log("Sending prompt:", prompt);
