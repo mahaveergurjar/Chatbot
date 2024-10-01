@@ -87,5 +87,7 @@ You can adjust the app screen size and position in `config.js`:
 ![Compact View ChatBot](./screenshot/image2.png)
 
 ### UI After Theme Button Added
-![Dark Theme UI Screenshot](https://github.com/user-attachments/assets/890d6fce-3406-4a41-9d14-955717b4c2a0)
-![Light Theme UI Screenshot](https://github.com/user-attachments/assets/0bd44c18-ba41-45a6-b790-5ed1007fdc83)
+![Light Theme UI Screenshot](https://github.com/user-attachments/assets/890d6fce-3406-4a41-9d14-955717b4c2a0)
+![Dark Theme UI Screenshot](https://github.com/user-attachments/assets/0bd44c18-ba41-45a6-b790-5ed1007fdc83)
+
+**Description**:The Button on the top right corner has an `evenListener` attached on click and switches between dark and light by changing the path of the image that is the `src` attribut of `img` tag.
