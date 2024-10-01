@@ -15,7 +15,7 @@ This chat application allows users to send messages and receive responses from a
 - **Copy:** Code copy option.
 - **Position:** App screen position changing option.
 - **Styled Interface:** Displays chat messages visually appealingly.
-- **Dark & Light Theme:** The application uses a dark theme for better readability in low-light environments and a light one provides better visibility in bright environments and creates a clean, minimalistic look that reduces eye strain in well-lit conditions. It’s widely preferred for readability during the day..
+- **Dark & Light Theme:** The application uses a dark theme for better readability in low-light environments and a light one provides better visibility in bright environments and creates a clean, minimalistic look that reduces eye strain in well-lit conditions. 
 
 ## Installation
 
