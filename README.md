@@ -1,4 +1,4 @@
-###### *<div align="right"><sub>// design by [Mahaveer](https://github.com/mahaveergurjar)</sub></div>*
+![Screenshot from 2024-10-01 20-19-33](https://github.com/user-attachments/assets/e5f9e18a-9e0c-4f49-8455-f2e708d79df5)###### *<div align="right"><sub>// design by [Mahaveer](https://github.com/mahaveergurjar)</sub></div>*
 # Desktop ChatBot Application
 
 ## Overview
@@ -78,9 +78,14 @@ You can adjust the app screen size and position in `config.js`:
 - **Gap:** Adjust the screen gap as needed.
 
 
+
 <!-- ![Full Screen ChatBot](./screenshot/image1.png) -->
+
 
 ### Screenshot
 
 ![Compact View ChatBot](./screenshot/image2.png)
 
+### UI After Theme Button Added
+![Dark Theme UI Screenshot](https://github.com/user-attachments/assets/890d6fce-3406-4a41-9d14-955717b4c2a0)
+![Light Theme UI Screenshot](https://github.com/user-attachments/assets/0bd44c18-ba41-45a6-b790-5ed1007fdc83)
