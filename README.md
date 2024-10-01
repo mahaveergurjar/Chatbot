@@ -49,11 +49,19 @@ To set up and run the chat application locally, follow these steps:
    4. Copy the generated API key.
 
 4. **Add Your API Key**
+4. **Set Up `.env` File**
 
-   After generating your API key, you need to add it to the `Config.js` file:
+   - Rename the `.env.example` file to `.env`:
 
-   1. Open the `config.js` file.
-   2. Replace the placeholder `Your_API_Key` with your actual API key:
+     ```bash
+     mv .env.example .env
+     ```
+
+   - Open the `.env` file and add your API key:
+
+     ```env
+     API_KEY=Your_Generated_API_Key
+     ```
 
 5. **Run the Application**
 
@@ -70,8 +78,9 @@ You can adjust the app screen size and position in `config.js`:
 - **Gap:** Adjust the screen gap as needed.
 
 
-![Full Screen ChatBot](./screenshot/image1.png)
+<!-- ![Full Screen ChatBot](./screenshot/image1.png) -->
 
 ### Screenshot
 
 ![Compact View ChatBot](./screenshot/image2.png)
+
