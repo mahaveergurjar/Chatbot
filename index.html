@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Application</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="chat-container">
-      <div id="chat" class="chat"></div>
-      <div class="input-container">
-        <input type="text" id="input" placeholder="Type a message..." />
-        <button id="send-button">Send</button>
-      </div>
-    </div>
-    <script src="renderer.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chat Application</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main id="chat-container" aria-labelledby="chat-heading">
+    <header>
+      <h1 id="chat-heading">Chat Application</h1>
+    </header>
+
+    <section id="chat" class="chat" aria-live="polite" aria-atomic="true"></section>
+
+    <section class="input-container">
+      <label for="input" class="visually-hidden">Type your message here</label>
+      <input type="text" id="input" aria-label="Message input" placeholder="Type a message..." autofocus
+        autocomplete="off" aria-required="true" />
+      <button id="send-button" aria-label="Send message">Send</button>
+    </section>
+  </main>
+
+  <script src="renderer.js"></script>
+</body>
+
 </html>
