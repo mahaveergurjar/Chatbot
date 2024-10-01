@@ -116,11 +116,11 @@ body {
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
-/*Theme Button*/
+/*Theme Button Added*/
 #theme-button {
     width: 40px;
     height: 40px;
-	background-color:#f5ac54;
+    background-color:#f5ac54;
     border-radius: 4px;
     margin-left: auto;
     margin-right: 10px;
@@ -129,10 +129,10 @@ body {
     align-items: center; /* Center vertically */
     cursor: pointer;
 }
+/*Image inside the theme button */
 #theme-button img{
-height:70%;
-width:70%;
-
+	height:70%;
+	width:70%;
 	object-fit: cover; 
 }
 /* Chat Container */
