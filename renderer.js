@@ -1,14 +1,12 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { API_KEY } = require("./config");
 
-// Initialize GoogleGenerativeAI with the API key
+let selectedImage = null; // Global variable to store the selected image
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputElement = document.getElementById("input");
-
-  // Focus on the input field when the page loads
   inputElement.focus();
 
   inputElement.addEventListener("keydown", (event) => {
@@ -18,24 +16,64 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("send-button").addEventListener("click", () => {
-    sendMessage();
-  });
+  document.getElementById("send-button").addEventListener("click", sendMessage);
 });
+
+document.getElementById("image-input").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  const previewContainer = document.getElementById("preview-container");
+  const previewImage = document.getElementById("preview-image");
+
+  if (file) {
+    selectedImage = file; 
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      previewImage.src = e.target.result;
+      previewContainer.style.display = 'block';
+    };
+
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById('remove-image').addEventListener('click', () => {
+  selectedImage = null; 
+  document.getElementById("preview-image").src = '';
+  document.getElementById("preview-container").style.display = 'none'; 
+  document.getElementById("image-input").value = '';
+});
+
+function fileToGenerativePart(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64Data = reader.result.split(",")[1];
+      resolve({
+        inlineData: {
+          data: base64Data,
+          mimeType: file.type,
+        },
+      });
+    };
+    reader.onerror = (error) => reject("Error reading file: " + error);
+    reader.readAsDataURL(file);
+  });
+}
 
 async function generateContent(prompt) {
   try {
     console.log("Sending prompt:", prompt);
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    if (response && response.text) {
-      const text = await response.text();
-      console.log("Generated text:", text);
-      return text;
+    let result;
+    if (selectedImage) {
+      const imagePart = await fileToGenerativePart(selectedImage);
+      result = await model.generateContent([prompt, imagePart]);
     } else {
-      throw new Error("Invalid response format");
+      result = await model.generateContent([prompt]);
     }
+
+    return result.response.text();
   } catch (error) {
     console.error("Error generating content:", error);
     throw error;
@@ -44,37 +82,48 @@ async function generateContent(prompt) {
 
 function sendMessage() {
   const inputElement = document.getElementById("input");
-  const userInput = inputElement.value.trim(); // Trim to remove unnecessary spaces
-  if (userInput === "") return; // Prevent sending empty messages
+  const userInput = inputElement.value.trim();
+  if (!userInput) return; 
 
   inputElement.value = "";
-
   const chatDiv = document.getElementById("chat");
   chatDiv.innerHTML += `<div class="user">User: ${escapeHTML(userInput)}</div>`;
   chatDiv.scrollTop = chatDiv.scrollHeight;
 
-  // Show typing indicator
   const typingIndicator = document.createElement("div");
   typingIndicator.classList.add("bot", "typing-indicator");
-  typingIndicator.innerText = "typing";
+  typingIndicator.innerText = "typing...";
   chatDiv.appendChild(typingIndicator);
   chatDiv.scrollTop = chatDiv.scrollHeight;
+
+  document.getElementById('preview-container').style.display = 'none';
 
   generateContent(userInput)
     .then((botMessage) => {
       const formattedMessage = formatMessage(botMessage);
-
-      // Remove typing indicator
       chatDiv.removeChild(typingIndicator);
 
       const responseDiv = document.createElement("div");
       responseDiv.classList.add("bot");
-      responseDiv.innerHTML = formattedMessage; // Set the formatted message directly
+
+      if (selectedImage) {
+        const previewImage = document.createElement("img");
+        previewImage.src = URL.createObjectURL(selectedImage);
+        previewImage.alt = "User image";
+        previewImage.classList.add("response-image");
+        responseDiv.appendChild(previewImage);
+        responseDiv.appendChild(document.createElement("br"));
+      }
+
+      responseDiv.innerHTML += formattedMessage; 
       chatDiv.appendChild(responseDiv);
       chatDiv.scrollTop = chatDiv.scrollHeight;
+
+      selectedImage = null;
+      document.getElementById('remove-image').click();
     })
     .catch((error) => {
-      chatDiv.innerHTML += `<div class="bot">Bot: Error connecting to API</div>`;
+      chatDiv.innerHTML += `<div class="bot">Bot: ${error}</div>`;
       console.error("API request error:", error);
     });
 }
@@ -95,30 +144,20 @@ function formatBoldText(text) {
 function formatCodeBlocks(text) {
   return text.replace(
     /```([a-z]*)\n([\s\S]*?)```/g,
-    (match, language, code) => {
-      const languageClass = language ? ` language-${language}` : "";
-      return `
-        <div class="code-block-container">
-          <button class="copy-button" onclick="copyCode(event)">Copy</button>
-          <pre class="code-block${languageClass}"><code class="hljs">${escapeHTML(
-        code
-      )}</code></pre>
-        </div>`;
-    }
+    (match, language, code) => `
+      <div class="code-block-container">
+        <button class="copy-button" onclick="copyCode(event)">Copy</button>
+        <pre class="code-block${language ? ` language-${language}` : ''}"><code class="hljs">${escapeHTML(code)}</code></pre>
+      </div>`
   );
 }
 
 function copyCode(event) {
   const codeBlock = event.target.nextElementSibling.querySelector("code");
-  const code = codeBlock.textContent;
   navigator.clipboard
-    .writeText(code)
-    .then(() => {
-      console.log("Code copied to clipboard");
-    })
-    .catch((error) => {
-      console.error("Error copying code:", error);
-    });
+    .writeText(codeBlock.textContent)
+    .then(() => console.log("Code copied to clipboard"))
+    .catch((error) => console.error("Error copying code:", error));
 }
 
 function formatLists(text) {
@@ -139,10 +178,7 @@ function escapeHTML(text) {
 }
 
 function formatLinks(text) {
-  return text.replace(
-    /\b(https?:\/\/[^\s]+)\b/g,
-    '<a href="$1" target="_blank">$1</a>'
-  );
+  return text.replace(/\b(https?:\/\/[^\s]+)\b/g, '<a href="$1" target="_blank">$1</a>');
 }
 
 function formatHeadings(text) {
@@ -150,4 +186,8 @@ function formatHeadings(text) {
     const level = hashes.length;
     return `<h${level} class="heading-${level}">${headingText}</h${level}>`;
   });
+}
+
+function onImageIconClick() {
+  document.getElementById('image-input').click();
 }
