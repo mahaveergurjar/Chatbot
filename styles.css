@@ -41,6 +41,10 @@ body {
     position: relative;
 }
 
+#chat-heading{
+    margin-left: 15px;
+}
+
 /* Input Container */
 .input-container {
     display: flex;
