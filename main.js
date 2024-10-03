@@ -5,40 +5,43 @@ const { createMenu } = require("./menu");
 let mainWindow;
 
 function createWindow() {
-  const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
+  try {
+    const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
 
-  // Calculate gaps for initial window positioning from config
-  const gaps = {
-    x: settings.horizontalPosition === 'left' ? settings.horizontalGap : screenWidth - settings.width - settings.horizontalGap,
-    y: settings.verticalPosition === 'top' ? settings.verticalGap : screenHeight - settings.height - settings.verticalGap,
-  };
+    // Improved positioning calculation for future flexibility
+    const gaps = {
+      x: settings.horizontalPosition === 'left' ? settings.horizontalGap :
+         settings.horizontalPosition === 'center' ? (screenWidth - settings.width) / 2 :
+         screenWidth - settings.width - settings.horizontalGap,
+      
+      y: settings.verticalPosition === 'top' ? settings.verticalGap :
+         settings.verticalPosition === 'center' ? (screenHeight - settings.height) / 2 :
+         screenHeight - settings.height - settings.verticalGap,
+    };
 
-  if (settings.horizontalPosition === 'center') {
-    gaps.x = (screenWidth - settings.width) / 2;
+    // Create the browser window with enhanced error handling
+    mainWindow = new BrowserWindow({
+      width: settings.width,
+      height: settings.height,
+      x: Math.floor(gaps.x),
+      y: Math.floor(gaps.y),
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      },
+    });
+
+    mainWindow.loadFile("index.html");
+
+    // Create the UI menu for window positioning and other options
+    createMenu(mainWindow);
+
+  } catch (error) {
+    console.error("Error creating the window: ", error);
   }
-  if (settings.verticalPosition === 'center') {
-    gaps.y = (screenHeight - settings.height) / 2;
-  }
-
-  // Create the browser window
-  mainWindow = new BrowserWindow({
-    width: settings.width,
-    height: settings.height,
-    x: Math.floor(gaps.x),
-    y: Math.floor(gaps.y),
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  mainWindow.loadFile("index.html");
-
-  // Create the UI menu for window positioning and other options
-  createMenu(mainWindow);
 }
 
-// Handle app lifecycle
+// Handle app lifecycle and errors
 app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {
@@ -53,4 +56,5 @@ app.on("activate", () => {
   }
 });
 
+// Disable hardware acceleration for compatibility purposes
 app.disableHardwareAcceleration();

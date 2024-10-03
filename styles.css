@@ -1,10 +1,10 @@
 /* General Styles */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #3c3c3c;
+    background-color: #00ff00; /* Neon green for a gaming effect */
     border-radius: 4px;
 }
 
@@ -13,20 +13,24 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    font-family: 'Orbitron', sans-serif; /* Futuristic gaming font */
+    background-color: #0e0e0e;
+    color: #f0f0f0;
     margin: 0;
     padding: 0;
     height: 100vh;
     overflow: hidden;
+    text-shadow: 0 0 8px #00ff00; /* Neon glow effect */
 }
-.container{
+
+/* Container */
+.container {
     display: flex;
-    justify-content: space-between; /* Spaces the elements inside the container */
-    align-items: center; /* Vertically aligns items in the center */
-    width: 100%; /* Ensures the container takes up full width */       
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
+
 /* Chat Container */
 #chat-container {
     display: flex;
@@ -35,8 +39,8 @@ body {
     max-width: 100%;
     margin: auto;
     border: 1px solid #333;
-    background-color: #1f1f1f;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    background-color: #1c1c1c;
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.5); /* Neon green shadow */
     overflow: hidden;
     position: relative;
 }
@@ -47,8 +51,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #1f1f1f;
-    /* Match the background color with the chat container */
+    background: #1c1c1c;
     border-top: 1px solid #333;
     position: sticky;
     bottom: 0;
@@ -61,80 +64,70 @@ body {
 /* Input Field */
 #input {
     flex: 1;
-    /* Ensures the input field takes up available space */
     padding: 12px;
-    border: 1px solid #444;
+    border: 2px solid #00ff00; /* Neon green border */
     border-radius: 20px;
-    /* Matching rounded corners */
-    background-color: #333;
-    /* Background color for better contrast */
-    color: #e0e0e0;
+    background-color: #111;
+    color: #00ff00;
     font-size: 16px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px #00ff00; /* Neon green glow */
     margin-right: 10px;
     resize: none;
-    /* Prevent resizing */
     outline: none;
-    /* Remove default focus outline */
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-
 #input:focus {
-    background-color: #444;
-    /* Slightly lighter background on focus */
-    border-color: #2979ff;
-    /* Highlight border color on focus */
-    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.5);
-    /* Enhanced shadow on focus */
+    background-color: #222;
+    border-color: #ff00ff; /* Neon pink on focus */
+    box-shadow: 0 0 12px #ff00ff;
 }
 
 /* Send Button */
 #send-button {
     padding: 12px 20px;
     border: none;
-    background-color: #2979ff;
+    background-color: #ff00ff; /* Neon pink button */
     color: #fff;
     font-size: 16px;
     cursor: pointer;
     border-radius: 20px;
-    /* Match the rounded corners */
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    /* Subtle shadow for depth */
+    box-shadow: 0 2px 4px rgba(255, 0, 255, 0.5); /* Pink shadow for depth */
 }
 
 #send-button:hover {
-    background-color: #1c54b2;
-    transform: scale(1.05);
-    /* Slight scale effect on hover */
+    background-color: #d400d4; /* Darker pink on hover */
+    transform: scale(1.1); /* Bigger hover effect */
 }
 
 #send-button:active {
-    background-color: #1a3a80;
-    /* Darker color when pressed */
-    transform: scale(0.98);
-    /* Slight scale effect when pressed */
+    background-color: #9e009e; /* Even darker on click */
+    transform: scale(0.95); /* Slight press effect */
 }
-/*Theme Button Added*/
+
+/* Theme Button */
 #theme-button {
     width: 40px;
     height: 40px;
-    background-color:#f5ac54;
-    border-radius: 4px;
+    background-color: #ff00ff; /* Neon pink for theme button */
+    border-radius: 50%;
     margin-left: auto;
     margin-right: 10px;
-    display: flex; /* Use flexbox to center content */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    box-shadow: 0 0 10px #ff00ff; /* Neon glow */
 }
-/*Image inside the theme button */
-#theme-button img{
-	height:70%;
-	width:70%;
-	object-fit: cover; 
+
+/* Image inside the theme button */
+#theme-button img {
+    height: 70%;
+    width: 70%;
+    object-fit: cover;
 }
+
 /* Chat Container */
 #chat {
     display: flex;
@@ -149,27 +142,25 @@ body {
 /* User Messages */
 #chat .user {
     align-self: flex-end;
-    /* Align user messages to the right */
     background-color: #2979ff;
     color: #fff;
     border-radius: 20px 20px 0 20px;
     padding: 12px;
     margin: 8px 0;
     max-width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3); /* Green shadow for user messages */
 }
 
 /* Bot Messages */
 #chat .bot {
     align-self: flex-start;
-    /* Align bot messages to the left */
     background-color: #333;
-    color: #e0e0e0;
+    color: #00ff00;
     border-radius: 20px 20px 20px 0;
     padding: 12px;
     margin: 8px 0;
     max-width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(255, 0, 255, 0.3); /* Pink shadow for bot messages */
 }
 
 /* Code Formatting */
@@ -180,23 +171,18 @@ body {
     overflow-x: auto;
     white-space: pre-wrap;
     border-radius: 12px;
-    color: #f8f8f2;
+    color: #00ff00;
     font-family: monospace;
     font-size: 14px;
+    box-shadow: 0 0 12px #00ff00;
 }
 
-/* Code Block Container */
-.code-block-container {
-    position: relative;
-    margin-bottom: 10px;
-    /* Space between code blocks */
-}
-
+/* Copy Button */
 .copy-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #2979ff;
+    background-color: #ff00ff;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -204,27 +190,24 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    /* Subtle shadow for depth */
+    box-shadow: 0 2px 4px rgba(255, 0, 255, 0.5); /* Pink glow for copy button */
 }
 
 .copy-button:hover {
-    background-color: #1c54b2;
-    transform: scale(1.05);
-    /* Slight scale effect on hover */
+    background-color: #d400d4;
+    transform: scale(1.1);
 }
 
 .copy-button:active {
-    background-color: #1a3a80;
-    transform: scale(0.98);
-    /* Slight scale effect when pressed */
+    background-color: #9e009e;
+    transform: scale(0.95);
 }
 
 /* Typing Indicator */
 .typing-indicator {
     display: inline-block;
     font-size: 14px;
-    color: #888;
+    color: #ff00ff;
 }
 
 .typing-indicator::after {
@@ -233,89 +216,11 @@ body {
     animation: dots 1s steps(5, end) infinite;
 }
 
-@keyframes dots {
-
-    0%,
-    20% {
-        content: '...';
-    }
-
-    40% {
-        content: '..';
-    }
-
-    60% {
-        content: '.';
-    }
-
-    80%,
-    100% {
-        content: '';
-    }
-}
-
-/* Styles for Light Theme Added */
-body.light-theme {
-    background-color: #ffffff; /* Light background */
-    color: #121212; /* Dark text */
-}
-
-body.light-theme #chat-container {
-    background-color: #f9f9f9; /* Light chat container */
-    border-color: #ddd;
-}
-body.light-theme .input-container {
-    background-color: #f9f9f9; /* Light chat container */
-    border-color: #ddd;
-}
-
-body.light-theme #input {
-    background-color: #e6e6e6;
-    color: #121212;
-    border-color: #ccc;
-}
-
-body.light-theme #input:focus {
-    background-color: #f0f0f0;
-    border-color: #2979ff;
-}
-
-body.light-theme #send-button {
-    background-color: #2979ff;
-    color: #fff;
-}
-
-body.light-theme #theme-button {
-    background-color: #8059d5; /* Light theme button */
-}
-
-body.light-theme #chat .user {
-    background-color: #2979ff;
-    color: #fff;
-}
-
-body.light-theme #chat .bot {
-    background-color: #c3c3c3	;
-    color: #121212;
-}
-
-body.light-theme .code-block {
-    background-color: #f0f0f0;
-    border-color: #ccc;
-    color: #121212;
-}
-
-body.light-theme .copy-button {
-    background-color: #2979ff;
-    color: #fff;
-}
-
-/* Scrollbar for Light Theme */
+/* Light Theme Scrollbar */
 body.light-theme ::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+    background-color: #ff00ff;
 }
 
 body.light-theme ::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
+    background-color: #121212;
 }
-

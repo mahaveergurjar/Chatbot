@@ -1,26 +1,27 @@
 const { Menu, screen, dialog } = require("electron");
 
 function createMenu(mainWindow) {
-  // Define your menu template
+  // Menu template with better comments and organization
   const template = [
     {
-      label: "File", // Default file menu
-      role: "fileMenu",
+      label: "File",
+      role: "fileMenu", // Standard Electron role for file menu
     },
     {
-      label: "Edit", // Default edit menu
-      role: "editMenu",
+      label: "Edit",
+      role: "editMenu", // Standard role for edit menu with basic operations
     },
     {
-      label: "View", // Default view menu
-      role: "viewMenu",
+      label: "View",
+      role: "viewMenu", // View-related operations such as toggling full screen
     },
     {
-      label: "Window", // Combined window menu
+      label: "Window",
       submenu: [
         {
           label: "Position",
           submenu: [
+            // Improved structure for window position options
             {
               label: "Left",
               submenu: [
@@ -72,7 +73,7 @@ function createMenu(mainWindow) {
                 },
               ],
             },
-            { type: "separator" },
+            { type: "separator" }, // Visual separator for better menu organization
             {
               label: "Custom Offset",
               click: () => editOffset(mainWindow),
@@ -82,17 +83,16 @@ function createMenu(mainWindow) {
         { type: "separator" },
         {
           label: "Minimize",
-          role: "minimize",
+          role: "minimize", // Standard role for minimizing the window
         },
         {
           label: "Close",
-          role: "close",
+          role: "close", // Standard role for closing the window
         },
       ],
     },
     {
-      label: "Help", // Default help menu
-      role: "help",
+      label: "Help",
       submenu: [
         {
           label: "Learn More",
@@ -117,7 +117,7 @@ function positionWindow(mainWindow, horizontal, vertical) {
     let x = 0;
     let y = 0;
 
-    // Calculate horizontal position
+    // Calculate horizontal position with comments for clarity
     if (horizontal === "center") {
       x = (workAreaSize.width - width) / 2;
     } else if (horizontal === "left") {
@@ -135,9 +135,10 @@ function positionWindow(mainWindow, horizontal, vertical) {
       y = workAreaSize.height - height;
     }
 
-    // Set new window position
+    // Ensure window is positioned within screen bounds
     mainWindow.setPosition(Math.floor(x), Math.floor(y));
   } catch (error) {
+    // Enhanced error handling with user-friendly message
     console.error("Error while positioning the window:", error);
     mainWindow.webContents.executeJavaScript(
       `alert('Failed to position the window: ${error.message}');`
@@ -167,7 +168,7 @@ function editOffset(mainWindow) {
           .then((input) => {
             const [x, y] = input.split(",").map(Number);
             if (!isNaN(x) && !isNaN(y)) {
-              mainWindow.setPosition(x, y);
+              mainWindow.setPosition(x, y); // Apply custom offset
             } else {
               mainWindow.webContents.executeJavaScript(
                 `alert('Invalid offset values. Please enter numbers in the format: x,y.');`
