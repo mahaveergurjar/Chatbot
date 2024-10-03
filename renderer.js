@@ -140,11 +140,7 @@ document.getElementById("file").addEventListener("change", (event) => {
 
 // Function to handle file uploads
 function handleFiles(files) {
-  // If a file is already selected, do not proceed
-  if (selectedFile) {
-    alert("A file is already selected. Please remove it before adding a new one.");
-    return;
-  }
+  
   
   const file = files[0];
 
@@ -248,6 +244,24 @@ function sendMessage() {
     previewImage.classList.add("response-image");
     userMessageDiv.appendChild(document.createElement("br"));
     userMessageDiv.appendChild(previewImage);
+  }else{// Add the file name and icon to the user's message
+    const fileName = document.createElement("div");
+    fileName.classList.add("fileName");
+    
+    // Add the file icon
+    const fileIcon = document.createElement("i");
+    fileIcon.classList.add("fas", "fa-file");
+    fileIcon.style.fontSize = "24px";
+    fileIcon.style.marginRight = "8px";
+    
+    
+    fileName.appendChild(fileIcon);  // Append icon before the file name
+    fileIcon.appendChild(document.createElement("br"));
+    fileName.appendChild(document.createTextNode(selectedFile.name));
+    userMessageDiv.appendChild(document.createElement("br"));
+    
+    userMessageDiv.appendChild(fileName);
+    
   }
 
   // Append user's message to the chat
@@ -284,13 +298,15 @@ function sendMessage() {
     chatDiv.appendChild(responseDiv);
     chatDiv.scrollTop = chatDiv.scrollHeight;
 
-    // Clear the selected file and preview after sending the message
-    selectedFile = null;
-    document.getElementById('remove-file').click();
   }).catch((error) => {
     chatDiv.innerHTML += `<div class="bot">Bot: ${error}</div>`;
     console.error("Error generating content:", error);
   });
+
+  
+    // Clear the selected file and preview after sending the message
+    selectedFile = null;
+    closeModal();
 
   // Hide the preview and reset the input
   document.getElementById("preview-image").src = '';
