@@ -5,6 +5,9 @@ const { API_KEY } = require("./config");
 const themeButton = document.getElementById('theme-button');
 const themeIcon = document.getElementById('theme-icon');
 
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+
+
 // Initialize GoogleGenerativeAI with the API key
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -47,61 +50,296 @@ themeButton.addEventListener('click', function() {
 });
 
 
+function onFileIconClick(){
+  document.getElementById('drag-drop-modal').style.display = 'block';
+}
+
+function onBrowseFileClick(){
+  document.getElementById('file').click();
+}
+
+
+function closeModal(){
+  document.getElementById('drag-drop-modal').style.display = 'none';
+}
+
+
+// Store the selected file
+let selectedFile = null;
+
+document.getElementById("file").addEventListener("change", (event) => {
+  document.getElementById('drag-drop-modal').style.display = 'none';
+  const file = event.target.files[0];
+
+  if (file) {
+    if (file.size >= MAX_FILE_SIZE) {
+      alert("File size exceeds 20MB. Please select a smaller file.");
+      return; // Do not proceed if file size is too large
+    }
+  }
+  const previewContainer = document.getElementById("preview-container");
+  const previewImage = document.getElementById("preview-image");
+  const fileIconContainer = document.getElementById("file-icon-container");
+
+  if (file) {
+    selectedFile = file;
+    const fileType = file.type;
+
+    if (fileType.startsWith('image/')) {
+      // If the file is an image, show the image preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+        previewContainer.style.display = 'block'; // Show the image container
+        fileIconContainer.style.display = 'none'; // Hide the file icon
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If the file is not an image, show the file icon
+      previewContainer.style.display = 'block'; // Hide the image container
+      fileIconContainer.style.display = 'block'; // Show the file icon
+      previewImage.style.display = 'none';
+    }
+
+    document.getElementById("fileName").textContent = file.name;
+  }
+});
+
+
+// Drag and Drop functionality
+const dropArea = document.getElementById("drop-area");
+
+dropArea.addEventListener("dragover", (event) => {
+  event.preventDefault(); // Prevent default behavior
+  dropArea.classList.add("drag-over"); // Optional: add visual feedback
+});
+
+dropArea.addEventListener("dragleave", () => {
+  dropArea.classList.remove("drag-over"); // Remove visual feedback
+});
+
+dropArea.addEventListener("drop", (event) => {
+  event.preventDefault(); // Prevent default behavior
+  dropArea.classList.remove("drag-over"); // Remove visual feedback
+  const files = event.dataTransfer.files;
+  if (files.length) {
+    
+    closeModal()
+    handleFiles(files);
+  }
+});
+
+// Handle file selection from the file input
+document.getElementById("file").addEventListener("change", (event) => {
+  const files = event.target.files;
+  if (files.length) {
+    handleFiles(files);
+  }
+});
+
+// Function to handle file uploads
+function handleFiles(files) {
+  // If a file is already selected, do not proceed
+  if (selectedFile) {
+    alert("A file is already selected. Please remove it before adding a new one.");
+    return;
+  }
+  
+  const file = files[0];
+
+  if (file) {
+    if (file.size >= MAX_FILE_SIZE) {
+      alert("File size exceeds 20MB. Please select a smaller file.");
+      return; // Do not proceed if file size is too large
+    }
+    
+    selectedFile = file; // Set the selected file
+
+    const previewContainer = document.getElementById("preview-container");
+    const previewImage = document.getElementById("preview-image");
+    const fileIconContainer = document.getElementById("file-icon-container");
+
+    if (file.type.startsWith('image/')) {
+      // If the file is an image, show the image preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+        previewContainer.style.display = 'block'; // Show the image container
+        fileIconContainer.style.display = 'none'; // Hide the file icon
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If the file is not an image, show the file icon
+      previewContainer.style.display = 'block'; // Show the file icon
+      fileIconContainer.style.display = 'block'; // Show the file icon
+      previewImage.style.display = 'none';
+    }
+
+    document.getElementById("fileName").textContent = file.name;
+  }
+}
+
+
+function removeFile() {
+  selectedFile = null; // Resetting the selected file
+  
+  // Resetting the preview
+  const previewImage = document.getElementById("preview-image");
+  const previewContainer = document.getElementById("preview-container");
+  const fileIconContainer = document.getElementById("file-icon-container");
+  const fileInput = document.getElementById("file");
+  
+  previewImage.src = ''; // Clear image source
+  previewContainer.style.display = 'none'; // Hide preview container
+  fileIconContainer.style.display = 'none'; // Hide file icon container
+  fileInput.value = ''; // Clear file input
+}
+
+// Helper method to convert a file to the generative part required by the API
+function fileToGenerativePart(file, mimeType) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = function () {
+      const base64Data = reader.result.split(",")[1]; // Get base64 string without metadata
+      resolve({
+        inlineData: {
+          data: base64Data,
+          mimeType: mimeType || file.type,
+        },
+      });
+    };
+
+    reader.onerror = function (error) {
+      reject("Error reading file: " + error);
+    };
+
+    reader.readAsDataURL(file); // Read the file as a base64 Data URL
+  });
+}
+
+function sendMessage() {
+  const inputElement = document.getElementById("input");
+  const userInput = inputElement.value.trim();
+
+  // Prevent sending empty messages
+  if (!userInput && !selectedFile) return;
+
+  const chatDiv = document.getElementById("chat");
+
+  // Create a container for the user's message
+  const userMessageDiv = document.createElement("div");
+  userMessageDiv.classList.add("user");
+
+  // Add user input to chat
+  if (userInput) {
+    userMessageDiv.innerHTML += `User: ${escapeHTML(userInput)}`;
+    inputElement.value = "";
+  }
+
+  // Add the user's selected file to the message, if any
+  if (selectedFile && selectedFile.type.startsWith("image/")) {
+    // Add the image to the user's message
+    const previewImage = document.createElement("img");
+    previewImage.src = URL.createObjectURL(selectedFile);
+    previewImage.alt = "Uploaded file preview";
+    previewImage.classList.add("response-image");
+    userMessageDiv.appendChild(document.createElement("br"));
+    userMessageDiv.appendChild(previewImage);
+  }
+
+  // Append user's message to the chat
+  chatDiv.appendChild(userMessageDiv);
+  chatDiv.scrollTop = chatDiv.scrollHeight;
+
+  // Show typing indicator
+  const typingIndicator = document.createElement("div");
+  typingIndicator.classList.add("bot", "typing-indicator");
+  typingIndicator.innerText = "typing...";
+  chatDiv.appendChild(typingIndicator);
+  chatDiv.scrollTop = chatDiv.scrollHeight;
+
+  // Generate content using the prompt and selected file if available
+  generateContent(userInput).then((botMessage) => {
+    // Remove typing indicator
+    chatDiv.removeChild(typingIndicator);
+
+    const responseDiv = document.createElement("div");
+    responseDiv.classList.add("bot");
+
+    // Add the user's selected file to the bot's response, if any
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      const botImage = document.createElement("img");
+      botImage.src = URL.createObjectURL(selectedFile);
+      botImage.alt = "Uploaded file preview";
+      botImage.classList.add("response-image");
+      responseDiv.appendChild(botImage);
+      responseDiv.appendChild(document.createElement("br"));
+    }
+
+    // Format and append the bot's message
+    responseDiv.innerHTML += formatMessage(botMessage);
+    chatDiv.appendChild(responseDiv);
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+
+    // Clear the selected file and preview after sending the message
+    selectedFile = null;
+    document.getElementById('remove-file').click();
+  }).catch((error) => {
+    chatDiv.innerHTML += `<div class="bot">Bot: ${error}</div>`;
+    console.error("Error generating content:", error);
+  });
+
+  // Hide the preview and reset the input
+  document.getElementById("preview-image").src = '';
+  document.getElementById("preview-container").style.display = 'none';
+  document.getElementById("file-icon-container").style.display = 'none';
+  document.getElementById("file").value = '';
+}
+
+
 async function generateContent(prompt) {
   try {
-    console.log("Sending prompt:", prompt);
+    let result;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    if (response && response.text) {
-      const text = await response.text();
-      console.log("Generated text:", text);
-      return text;
+    if (selectedFile) {
+      // Dynamically handle the file's MIME type
+      let mimeType;
+      const fileType = selectedFile.type;
+
+      // Check for specific file types and set the MIME type accordingly
+      if (fileType.startsWith("image/")) {
+        mimeType = fileType;  // Pass image MIME type (e.g., "image/jpeg", "image/png")
+      } else if (fileType.startsWith("audio/")) {
+        mimeType = "audio/mp3";  // For audio
+      } else {
+        // Unsupported file type
+        alert(`Unsupported file type. Please upload an image, video, or audio file. ${fileType}`);
+        return;
+      }
+
+      
+      // Convert file to the part required by the API
+      const filePart = await fileToGenerativePart(selectedFile, mimeType);
+
+      // Send both the prompt and the file part
+      result = await model.generateContent([prompt, filePart]);
+
+      console.log("File sent with prompt.");
     } else {
-      throw new Error("Invalid response format");
+      // Only prompt provided, no file
+      result = await model.generateContent([prompt]);
     }
+
+    return result.response.text();  // Return the generated response from the model
   } catch (error) {
     console.error("Error generating content:", error);
     throw error;
   }
 }
 
-function sendMessage() {
-  const inputElement = document.getElementById("input");
-  const userInput = inputElement.value.trim(); // Trim to remove unnecessary spaces
-  if (userInput === "") return; // Prevent sending empty messages
-
-  inputElement.value = "";
-
-  const chatDiv = document.getElementById("chat");
-  chatDiv.innerHTML += `<div class="user">User: ${escapeHTML(userInput)}</div>`;
-  chatDiv.scrollTop = chatDiv.scrollHeight;
-
-  // Show typing indicator
-  const typingIndicator = document.createElement("div");
-  typingIndicator.classList.add("bot", "typing-indicator");
-  typingIndicator.innerText = "typing";
-  chatDiv.appendChild(typingIndicator);
-  chatDiv.scrollTop = chatDiv.scrollHeight;
-
-  generateContent(userInput)
-    .then((botMessage) => {
-      const formattedMessage = formatMessage(botMessage);
-
-      // Remove typing indicator
-      chatDiv.removeChild(typingIndicator);
-
-      const responseDiv = document.createElement("div");
-      responseDiv.classList.add("bot");
-      responseDiv.innerHTML = formattedMessage; // Set the formatted message directly
-      chatDiv.appendChild(responseDiv);
-      chatDiv.scrollTop = chatDiv.scrollHeight;
-    })
-    .catch((error) => {
-      chatDiv.innerHTML += `<div class="bot">Bot: Error connecting to API</div>`;
-      console.error("API request error:", error);
-    });
-}
 
 function formatMessage(text) {
   let formattedText = formatBoldText(text);
@@ -175,3 +413,4 @@ function formatHeadings(text) {
     return `<h${level} class="heading-${level}">${headingText}</h${level}>`;
   });
 }
+

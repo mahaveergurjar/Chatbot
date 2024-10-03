@@ -54,7 +54,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 400px;
+    width: 95%;
     margin: auto;
 }
 
@@ -72,11 +72,28 @@ body {
     font-size: 16px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
     margin-right: 10px;
+    margin-left: 10px;
     resize: none;
     /* Prevent resizing */
     outline: none;
     /* Remove default focus outline */
     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+
+/* Responsive Styles for Mobile Devices */
+@media (max-width: 768px) {
+    #input {
+        padding: 5px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Slightly smaller font size */
+        border-radius: 15px; /* Reduced border radius */
+        margin: 2px; /* Reduce margin */
+    }
+
+    .input-container{
+        padding: 5px;
+    }
+
 }
 
 
@@ -98,6 +115,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 20px;
+
     /* Match the rounded corners */
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -319,3 +337,158 @@ body.light-theme ::-webkit-scrollbar-track {
     background-color: #f0f0f0;
 }
 
+
+
+#file-icon{
+    font-size: 24px;
+    cursor: pointer;
+    border: 1px solid white ;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+#preview-container {
+    display: none;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  #preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  
+  
+  #remove-file {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  #input {
+    flex-grow: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  #send-button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #image-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+  }
+  
+
+  #file-icon-container{
+    font-size: 40px;
+    padding: 5px;
+  }
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+    width: 80%; 
+    max-width: 400px; 
+}
+
+.modal-content {
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal-content p {
+    margin: 0 0 10px;
+}
+
+.modal-content button {
+    background-color: #2979ff; 
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #1c54b2; /* Darker shade on hover */
+}
+
+/* Close button styles */
+#close-modal {
+    z-index: 1001;
+    position: absolute; /* Position it relative to modal */
+    top: 10px;
+    right: 10px;
+    background: #d32f2f; /* A red color for visibility */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 5px; /* Round edges */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#close-modal:hover {
+    background: #b71c1c; /* Darker red on hover */
+}
+
+
+  .response-image{
+    width: 90px;
+    height: 90px;
+  }
+  
+  
+
+/* Responsive Styles for Mobile Devices */
+@media (max-width: 400px) {
+    
+    #file-icon{
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid white ;
+        border-radius: 50px;
+        padding: 8px;
+    }
+    
+
+}
