@@ -492,3 +492,89 @@ body.light-theme ::-webkit-scrollbar-track {
     
 
 }
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+    width: 80%; 
+    max-width: 400px; 
+    background-color: #1a1a1a;
+}
+
+/* Light Theme Modal Styles */
+body.light-theme .modal {
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ddd; /* Light border */
+}
+
+body.light-theme .modal-content {
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: #121212; /* Dark text for light theme */
+}
+
+body.light-theme .modal-content button {
+    background-color: #2979ff; /* Button color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    color: #fff; /* Text color for button */
+}
+
+body.light-theme .modal-content button:hover {
+    background-color: #1c54b2; /* Darker shade on hover */
+}
+
+/* Dark Theme Modal Styles */
+body.dark-theme .modal {
+    background-color: #1f1f1f; /* Dark background */
+    border: 1px solid #333; /* Dark border */
+}
+
+body.dark-theme .modal-content {
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: #e0e0e0; /* Light text for dark theme */
+}
+
+body.dark-theme .modal-content button {
+    background-color: #2979ff; /* Button color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    color: #fff; /* Text color for button */
+}
+
+body.dark-theme .modal-content button:hover {
+    background-color: #1c54b2; /* Darker shade on hover */
+}
+
+/* Close button styles */
+#close-modal {
+    z-index: 1001;
+    position: absolute; /* Position it relative to modal */
+    top: 10px;
+    right: 10px;
+    background: #d32f2f; /* A red color for visibility */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 5px; /* Add border-radius for consistency */
+}

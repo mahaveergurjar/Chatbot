@@ -221,7 +221,11 @@ function sendMessage() {
   const userInput = inputElement.value.trim();
 
   // Prevent sending empty messages
-  if (!userInput && !selectedFile) return;
+  if (userInput === "" && selectedFile === null) {
+    return;
+  }
+  
+  document.getElementById("preview-container").style.display = 'none';
 
   const chatDiv = document.getElementById("chat");
 
@@ -232,36 +236,35 @@ function sendMessage() {
   // Add user input to chat
   if (userInput) {
     userMessageDiv.innerHTML += `User: ${escapeHTML(userInput)}`;
-    inputElement.value = "";
+    inputElement.value = ""; // Clear input after sending message
   }
 
-  // Add the user's selected file to the message, if any
-  if (selectedFile && selectedFile.type.startsWith("image/")) {
-    // Add the image to the user's message
-    const previewImage = document.createElement("img");
-    previewImage.src = URL.createObjectURL(selectedFile);
-    previewImage.alt = "Uploaded file preview";
-    previewImage.classList.add("response-image");
-    userMessageDiv.appendChild(document.createElement("br"));
-    userMessageDiv.appendChild(previewImage);
-  }else{// Add the file name and icon to the user's message
-    const fileName = document.createElement("div");
-    fileName.classList.add("fileName");
-    
-    // Add the file icon
-    const fileIcon = document.createElement("i");
-    fileIcon.classList.add("fas", "fa-file");
-    fileIcon.style.fontSize = "24px";
-    fileIcon.style.marginRight = "8px";
-    
-    
-    fileName.appendChild(fileIcon);  // Append icon before the file name
-    fileIcon.appendChild(document.createElement("br"));
-    fileName.appendChild(document.createTextNode(selectedFile.name));
-    userMessageDiv.appendChild(document.createElement("br"));
-    
-    userMessageDiv.appendChild(fileName);
-    
+  // Check if a file is selected
+  if (selectedFile) {
+    if (selectedFile.type.startsWith("image/")) {
+      // Handle image file
+      const previewImage = document.createElement("img");
+      previewImage.src = URL.createObjectURL(selectedFile);
+      previewImage.alt = "Uploaded file preview";
+      previewImage.classList.add("response-image");
+      userMessageDiv.appendChild(document.createElement("br"));
+      userMessageDiv.appendChild(previewImage);
+    } else {
+      // Handle non-image file: Add the file name and icon
+      const fileName = document.createElement("div");
+      fileName.classList.add("fileName");
+
+      // Add the file icon
+      const fileIcon = document.createElement("i");
+      fileIcon.classList.add("fas", "fa-file");
+      fileIcon.style.fontSize = "24px";
+      fileIcon.style.marginRight = "8px";
+
+      fileName.appendChild(fileIcon); // Append icon before the file name
+      fileName.appendChild(document.createTextNode(selectedFile.name)); // Add file name
+      userMessageDiv.appendChild(document.createElement("br"));
+      userMessageDiv.appendChild(fileName);
+    }
   }
 
   // Append user's message to the chat
@@ -275,7 +278,7 @@ function sendMessage() {
   chatDiv.appendChild(typingIndicator);
   chatDiv.scrollTop = chatDiv.scrollHeight;
 
-  // Generate content using the prompt and selected file if available
+  // Generate bot response
   generateContent(userInput).then((botMessage) => {
     // Remove typing indicator
     chatDiv.removeChild(typingIndicator);
@@ -283,7 +286,7 @@ function sendMessage() {
     const responseDiv = document.createElement("div");
     responseDiv.classList.add("bot");
 
-    // Add the user's selected file to the bot's response, if any
+    // Handle bot response with an image (if any)
     if (selectedFile && selectedFile.type.startsWith("image/")) {
       const botImage = document.createElement("img");
       botImage.src = URL.createObjectURL(selectedFile);
@@ -293,26 +296,20 @@ function sendMessage() {
       responseDiv.appendChild(document.createElement("br"));
     }
 
-    // Format and append the bot's message
+    // Append the bot's message
     responseDiv.innerHTML += formatMessage(botMessage);
     chatDiv.appendChild(responseDiv);
     chatDiv.scrollTop = chatDiv.scrollHeight;
 
+    // Clear the selected file and reset the input after the message is sent
+    selectedFile = null;
+    document.getElementById("preview-image").src = '';
+    document.getElementById("preview-container").style.display = 'none';
+    document.getElementById("file").value = '';
   }).catch((error) => {
     chatDiv.innerHTML += `<div class="bot">Bot: ${error}</div>`;
     console.error("Error generating content:", error);
   });
-
-  
-    // Clear the selected file and preview after sending the message
-    selectedFile = null;
-    closeModal();
-
-  // Hide the preview and reset the input
-  document.getElementById("preview-image").src = '';
-  document.getElementById("preview-container").style.display = 'none';
-  document.getElementById("file-icon-container").style.display = 'none';
-  document.getElementById("file").value = '';
 }
 
 
