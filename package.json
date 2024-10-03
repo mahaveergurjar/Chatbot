@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.17.1",
+    "chatbot": "file:",
     "dotenv": "^16.4.5"
   }
 }
