@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --no-sandbox"
   },
   "keywords": [],
   "author": "mahaveer",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.17.1",
     "chatbot": "file:",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "electron": "^32.0.1"
   }
 }

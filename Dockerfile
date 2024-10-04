@@ -1,41 +1,52 @@
-# 1. Use an official Node.js image with a version compatible with Electron
-FROM node:18-buster-slim
+# Use a Node.js base image
+FROM node:19.2
 
-# 2. Install necessary dependencies for Electron, including Xvfb (virtual display) and other GUI-related dependencies
+# Install necessary libraries for Electron
 RUN apt-get update && apt-get install -y \
-  xvfb \
-  libx11-xcb1 \
-  libxcomposite1 \
-  libxdamage1 \
-  libxrandr2 \
-  libasound2 \
-  libpangocairo-1.0-0 \
-  libatk1.0-0 \
-  libatk-bridge2.0-0 \
-  libgtk-3-0 \
-  libgbm-dev \
-  libnss3 \
-  libdrm2 \
-  --no-install-recommends && \
-  apt-get clean && rm -rf /var/lib/apt/lists/*
+    libx11-xcb1 \
+    libxcb-dri3-0 \
+    libxtst6 \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libxss1 \
+    libasound2 \
+    libdrm2 \
+    libgbm1 \
+    libglvnd-dev \
+    dbus \
+    nano \
+    xauth && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 3. Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# 4. Copy package.json and package-lock.json first for better build caching
-COPY package*.json ./
-
-# 5. Install only production dependencies (if needed, modify for development dependencies)
-RUN npm install --only=production
-
-# 6. Copy the rest of the application code
+# Copy the application files into the container
 COPY . .
 
-# 7. Expose the port if Electron communicates on a specific port (optional)
-# EXPOSE 3000
+# Change ownership of the application files
+RUN chown -R node /app
 
-# 8. Set environment variables, e.g., API keys (optional)
-# ENV API_KEY="AIzaSyDTRcDDG_KA7GIx13hgADcDD0QT1FWGh8I"
+# Switch to the node user
+USER node
 
-# 9. Start the virtual display and run the Electron application
-CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "npm", "start"]
+# Install Node.js dependencies
+RUN npm install
+
+# Switch back to root for sandboxing setup
+USER root
+
+# Set permissions for Electron's chrome-sandbox if it exists
+RUN if [ -f /app/node_modules/electron/dist/chrome-sandbox ]; then \
+        chown root /app/node_modules/electron/dist/chrome-sandbox && \
+        chmod 4755 /app/node_modules/electron/dist/chrome-sandbox; \
+    else \
+        echo "chrome-sandbox not found"; \
+    fi
+
+# Switch back to the node user
+USER node
+
+# Command to run the application
+CMD ["npm", "start"]
