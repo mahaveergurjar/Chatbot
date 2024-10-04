@@ -68,6 +68,26 @@ To set up and run the chat application locally, follow these steps:
    `npm start`
 
 
+
+## Docker Instructions
+To run the chat application using Docker, follow these steps:
+### Prerequisites
+Ensure you have Docker installed on your machine.
+### Steps
+1. **Build the Docker Image**
+Navigate to your project directory and build the Docker image:
+
+```bash
+docker build -t chatbot .
+```
+
+2. **Run the Docker Container**
+Execute the following command to run your application in a Docker container:
+
+```bash
+docker run -it --rm -e DISPLAY=unix$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix chatbot
+```
+
 ###### *<div align="right"><sub>//credited to [Tarush Gupta](https://github.com/TarushGupta23)</sub></div>*
 ### Position Customization
 
