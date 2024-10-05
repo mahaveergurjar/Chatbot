@@ -49,7 +49,8 @@
 
       <!-- Removed the visually-hidden label -->
       <input type="text" id="input" aria-label="Message input" placeholder="Ask our AI anything..." autofocus autocomplete="off" aria-required="true" />
-      <button id="send-button" aria-label="Send message">Send</button>
+      <!-- Send icon replacing the button -->
+      <i class="fa-solid fa-paper-plane" id="send-icon" aria-label="Send message" onclick="sendMessage()"></i>
     </section>
   </main>
 
