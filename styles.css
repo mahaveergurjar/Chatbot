@@ -13,7 +13,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #121212;
     color: #e0e0e0;
     margin: 0;
@@ -23,10 +23,13 @@ body {
 }
 .container{
     display: flex;
-    justify-content: space-between; /* Spaces the elements inside the container */
+    justify-content: center; /* Center the content horizontally */
     align-items: center; /* Vertically aligns items in the center */
-    width: 100%; /* Ensures the container takes up full width */       
+    width: 100%; /* Ensures the container takes up full width */      
+    padding: 0 15px; /* Add some horizontal padding */
+    box-sizing: border-box; /* Include padding in the width calculation */ 
 }
+
 /* Chat Container */
 #chat-container {
     display: flex;
@@ -34,11 +37,23 @@ body {
     height: 100vh;
     max-width: 100%;
     margin: auto;
-    border: 1px solid #333;
-    background-color: #1f1f1f;
+    background-color: #070707;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: relative;
+}
+
+/* Chat Heading */
+#chat-heading {
+    color: #FFF;
+    text-align: center; 
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%; /* Ensure the heading takes full width */
+    margin: 0; /* Remove any default margins */
+    padding: 20px 0; /* Add some vertical padding */
 }
 
 /* Input Container */
@@ -47,9 +62,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #1f1f1f;
+    background: #070707;
     /* Match the background color with the chat container */
-    border-top: 1px solid #333;
     position: sticky;
     bottom: 0;
     left: 0;
@@ -145,9 +159,11 @@ body {
 /* Remove Send Button  */
 /*Theme Button Added*/
 #theme-button {
+    position: absolute; /* Position the theme button absolutely */
+    right: 10px; /* Align to the right */
+    top: 15px; /* Align to the top */
     width: 40px;
     height: 40px;
-    background-color:#f5ac54;
     border-radius: 4px;
     margin-left: auto;
     margin-right: 10px;
@@ -170,15 +186,15 @@ body {
     padding: 15px;
     padding-bottom: 80px;
     overflow-y: auto;
-    border-bottom: 1px solid #333;
 }
 
 /* User Messages */
 #chat .user {
     align-self: flex-end;
     /* Align user messages to the right */
-    background-color: #2979ff;
+    background-color: #755834;
     color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 0 20px;
     padding: 12px;
     margin: 8px 0;
@@ -190,8 +206,9 @@ body {
 #chat .bot {
     align-self: flex-start;
     /* Align bot messages to the left */
-    background-color: #333;
+    background-color: #1F1F1F;
     color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 20px 0;
     padding: 12px;
     margin: 8px 0;
@@ -221,11 +238,11 @@ body {
 
 .copy-button {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 10px;
-    background-color: #2979ff;
-    color: #fff;
-    border: none;
+    background-color: #070707;
+    color: #F59C38;
+    border: 1px solid #F59C38;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
@@ -236,13 +253,14 @@ body {
 }
 
 .copy-button:hover {
-    background-color: #1c54b2;
+    background-color: #F59C38;
+    color: #070707;
     transform: scale(1.05);
     /* Slight scale effect on hover */
 }
 
 .copy-button:active {
-    background-color: #1a3a80;
+    color: #FFF;
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
