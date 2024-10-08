@@ -13,7 +13,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #121212;
     color: #e0e0e0;
     margin: 0;
@@ -23,10 +23,13 @@ body {
 }
 .container{
     display: flex;
-    justify-content: space-between; /* Spaces the elements inside the container */
+    justify-content: center; /* Center the content horizontally */
     align-items: center; /* Vertically aligns items in the center */
-    width: 100%; /* Ensures the container takes up full width */       
+    width: 100%; /* Ensures the container takes up full width */      
+    padding: 0 15px; /* Add some horizontal padding */
+    box-sizing: border-box; /* Include padding in the width calculation */ 
 }
+
 /* Chat Container */
 #chat-container {
     display: flex;
@@ -34,11 +37,23 @@ body {
     height: 100vh;
     max-width: 100%;
     margin: auto;
-    border: 1px solid #333;
-    background-color: #1f1f1f;
+    background-color: #070707;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: relative;
+}
+
+/* Chat Heading */
+#chat-heading {
+    color: #FFF;
+    text-align: center; 
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%; /* Ensure the heading takes full width */
+    margin: 0; /* Remove any default margins */
+    padding: 20px 0; /* Add some vertical padding */
 }
 
 /* Input Container */
@@ -47,68 +62,56 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #1f1f1f;
+    background: #1E1F20;
+    border-radius: 25px;
     /* Match the background color with the chat container */
-    border-top: 1px solid #333;
-    position: sticky;
-    bottom: 0;
+    position: absolute;
+    bottom: 20px;
     left: 0;
     right: 0;
-    width: 95%;
+    width: 85%;
+    min-width: 200px;
+    max-width: 1200px;
     margin: auto;
-    height: 60px; /* Increased container height to match icon and input */
+    height: 30px; /* Increased container height to match icon and input */
 }
 
 /* Input Field */
 #input {
     flex: 1;
     /* Ensures the input field takes up available space */
-    padding: 8px;
-    border: 1px solid #444;
-    border-radius: 15px;
+    border: none;
     /* Matching rounded corners */
-    background-color: #333;
+    background-color: #1E1F20;
     /* Background color for better contrast */
     color: #e0e0e0;
     font-size: 16px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-    margin-right: 5px;
-    margin-left: 5px;
     resize: none;
     /* Prevent resizing */
     outline: none;
     /* Remove default focus outline */
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
     height: 30px; /* Set fixed height for better alignment */
 }
 
 /* Send Icon */
 #send-icon {
     font-size: 20px;
-    color: #2979ff;
     cursor: pointer;
-    padding: 8px;
     border-radius: 50%;
-    background-color: #fff;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    margin-left: 10px;
     display: flex;
     align-items: center; /* Align icon vertically */
     justify-content: center; /* Center icon horizontally */
-    height: 35px;
-    width: 35px; /* Set width and height to match a circular button */
+    height: 28px;
+    width: 28px; /* Set width and height to match a circular button */
+    margin-right: 3px;
 }
 
 /* Hover and Active States for Icon */
 #send-icon:hover {
-    background-color: #1c54b2;
-    color: #fff;
     transform: scale(1.05);
 }
 
 #send-icon:active {
-    background-color: #1a3a80;
     transform: scale(0.98);
 }
 
@@ -123,31 +126,29 @@ body {
 
     .input-container {
         padding: 5px;
-        height: 50px; /* Adjust container height for smaller screens */
+        height: 30px; /* Adjust container height for smaller screens */
     }
 
     #send-icon {
-        padding: 8px;
         font-size: 20px; /* Adjust icon size for smaller screens */
-        height: 35px;
-        width: 35px; /* Adjust icon button size */
+        height: 28px;
+        width: 28px; /* Adjust icon button size */
     }
 }
 
 /* Focus State for Input Field */
 #input:focus {
-    background-color: #444;
-    /* Slightly lighter background on focus */
-    border-color: #2979ff;
-    /* Highlight border color on focus */
-    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.5);
+    background-color: #1E1F20;
+    outline: none;
 }
-/* Remove Send Button  */
+
 /*Theme Button Added*/
 #theme-button {
+    position: absolute; /* Position the theme button absolutely */
+    right: 10px; /* Align to the right */
+    top: 15px; /* Align to the top */
     width: 40px;
     height: 40px;
-    background-color:#f5ac54;
     border-radius: 4px;
     margin-left: auto;
     margin-right: 10px;
@@ -170,15 +171,15 @@ body {
     padding: 15px;
     padding-bottom: 80px;
     overflow-y: auto;
-    border-bottom: 1px solid #333;
 }
 
 /* User Messages */
 #chat .user {
     align-self: flex-end;
     /* Align user messages to the right */
-    background-color: #2979ff;
+    background-color: #755834;
     color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 0 20px;
     padding: 12px;
     margin: 8px 0;
@@ -190,8 +191,9 @@ body {
 #chat .bot {
     align-self: flex-start;
     /* Align bot messages to the left */
-    background-color: #333;
+    background-color: #1F1F1F;
     color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 20px 0;
     padding: 12px;
     margin: 8px 0;
@@ -221,11 +223,11 @@ body {
 
 .copy-button {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 10px;
-    background-color: #2979ff;
-    color: #fff;
-    border: none;
+    background-color: #070707;
+    color: #F59C38;
+    border: 1px solid #F59C38;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
@@ -236,13 +238,14 @@ body {
 }
 
 .copy-button:hover {
-    background-color: #1c54b2;
+    background-color: #F59C38;
+    color: #070707;
     transform: scale(1.05);
     /* Slight scale effect on hover */
 }
 
 .copy-button:active {
-    background-color: #1a3a80;
+    color: #FFF;
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
@@ -291,29 +294,9 @@ body.light-theme #chat-container {
     background-color: #f9f9f9; /* Light chat container */
     border-color: #ddd;
 }
-body.light-theme .input-container {
-    background-color: #f9f9f9; /* Light chat container */
-    border-color: #ddd;
-}
 
-body.light-theme #input {
-    background-color: #e6e6e6;
-    color: #121212;
-    border-color: #ccc;
-}
-
-body.light-theme #input:focus {
-    background-color: #f0f0f0;
-    border-color: #2979ff;
-}
-
-body.light-theme #send-button {
-    background-color: #2979ff;
-    color: #fff;
-}
-
-body.light-theme #theme-button {
-    background-color: #8059d5; /* Light theme button */
+body.light-theme #chat-heading {
+    color: #070707;
 }
 
 body.light-theme #chat .user {
@@ -349,21 +332,24 @@ body.light-theme ::-webkit-scrollbar-track {
 
 
 #file-icon{
-    font-size: 24px;
     cursor: pointer;
-    border: 1px solid white ;
     border-radius: 50px;
-    padding: 10px;
+    height: 26px;
+    width: 26px;
+    margin-left: 3px;
+    margin-right: 5px;
 }
 
 #preview-container {
     display: none;
-    position: relative;
+    position: absolute;
     margin-bottom: 10px;
+    bottom: 65px;
+    width: 100%;
   }
   
   #preview-image {
-    max-width: 100px;
+    max-width: 200px;
     max-height: 100px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -390,14 +376,6 @@ body.light-theme ::-webkit-scrollbar-track {
     display: flex;
     align-items: center;
     padding: 10px;
-  }
-  
-  #input {
-    flex-grow: 1;
-    margin: 0 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
   }
   
   #send-button {
@@ -494,7 +472,6 @@ body.light-theme ::-webkit-scrollbar-track {
     #file-icon{
         font-size: 16px;
         cursor: pointer;
-        border: 1px solid white ;
         border-radius: 50px;
         padding: 8px;
     }

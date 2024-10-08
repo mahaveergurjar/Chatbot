@@ -235,7 +235,7 @@ function sendMessage() {
 
   // Add user input to chat
   if (userInput) {
-    userMessageDiv.innerHTML += `User: ${escapeHTML(userInput)}`;
+    userMessageDiv.innerHTML += `<strong>User:</strong> ${escapeHTML(userInput)}`;
     inputElement.value = ""; // Clear input after sending message
   }
 
