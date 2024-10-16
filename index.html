@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link id="hljs-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/agate.min.css">
 </head>
 
 <body>
@@ -46,13 +47,13 @@
 
     <!-- Input section for sending messages -->
     <section class="input-container">
-      <img src="assets/input-button/attachment.png" id="file-icon" onclick="onFileIconClick()" ></i>
+      <img src="assets/input-button/attachment.png" id="file-icon" class="input-icons" onclick="onFileIconClick()" ></i>
       <input type="file" name="file" hidden id="file" accept="image/*,audio/*">
 
       <!-- Removed the visually-hidden label -->
       <input type="text" id="input" aria-label="Message input" placeholder="Ask our AI anything..." autofocus autocomplete="off" aria-required="true" />
       <!-- Send icon replacing the button -->
-      <img src="assets/input-button/arrow.png" id="send-icon" aria-label="Send message" onclick="sendMessage()"></i>
+      <img src="assets/input-button/arrow.png" id="send-icon" class="input-icons" aria-label="Send message" onclick="sendMessage()"></i>
     </section>
   </main>
 
@@ -68,10 +69,10 @@
     
   </div>
 
-
-
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
   <script src="renderer.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 
 </html>
