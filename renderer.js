@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Image paths for light and dark mode icons
 const lightModeIcon = 'assets/theme-button/images/light-mode.png';
 const darkModeIcon = 'assets/theme-button/images/dark-mode.png';
+const themeLink = document.getElementById('hljs-theme');
 
 // Adding click eventListener to theme-button as 
 themeButton.addEventListener('click', function() {
@@ -44,8 +45,10 @@ themeButton.addEventListener('click', function() {
     // Swap the image based on the active theme
     if (document.body.classList.contains('light-theme')) {
         themeIcon.src = darkModeIcon;  // Switch to dark mode icon
-    } else {
+        themeLink.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css');
+      } else {
         themeIcon.src = lightModeIcon;  // Switch to light mode icon
+        themeLink.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/agate.min.css');
     }
 });
 
@@ -235,7 +238,7 @@ function sendMessage() {
 
   // Add user input to chat
   if (userInput) {
-    userMessageDiv.innerHTML += `<strong>User:</strong> ${escapeHTML(userInput)}`;
+    userMessageDiv.innerHTML += `${escapeHTML(userInput)}`;
     inputElement.value = ""; // Clear input after sending message
   }
 
@@ -306,8 +309,9 @@ function sendMessage() {
     document.getElementById("preview-image").src = '';
     document.getElementById("preview-container").style.display = 'none';
     document.getElementById("file").value = '';
+    hljs.highlightAll()
   }).catch((error) => {
-    chatDiv.innerHTML += `<div class="bot">Bot: ${error}</div>`;
+    chatDiv.innerHTML += `<div class="bot">${error}</div>`;
     console.error("Error generating content:", error);
   });
 }
@@ -367,17 +371,26 @@ function formatBoldText(text) {
   return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 }
 
+// function formatCodeBlocks(text) {
+//   return text.replace(
+//     /```([a-z]*)\n([\s\S]*?)```/g,
+//     (match, language, code) => {
+//       const languageClass = language ? ` language-${language}` : "";
+//       return `<div class="code-block-container">
+//           <button class="copy-button" onclick="copyCode(event)">Copy</button>
+//           <pre class="code-block${languageClass}"><code class="hljs">${escapeHTML(code)}</code></pre>
+//         </div>`;
+//     }
+//   );
+// }
 function formatCodeBlocks(text) {
   return text.replace(
     /```([a-z]*)\n([\s\S]*?)```/g,
     (match, language, code) => {
       const languageClass = language ? ` language-${language}` : "";
-      return `
-        <div class="code-block-container">
+      return `<div class="code-block-container">
           <button class="copy-button" onclick="copyCode(event)">Copy</button>
-          <pre class="code-block${languageClass}"><code class="hljs">${escapeHTML(
-        code
-      )}</code></pre>
+          <pre><code class="${languageClass} hljs">${escapeHTML(code)}</code></pre>
         </div>`;
     }
   );

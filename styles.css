@@ -107,11 +107,12 @@ body {
 }
 
 /* Hover and Active States for Icon */
-#send-icon:hover {
+.input-icons:hover {
     transform: scale(1.05);
+    filter: brightness(150%);  
 }
 
-#send-icon:active {
+.input-icons:active {
     transform: scale(0.98);
 }
 
@@ -177,11 +178,11 @@ body {
 #chat .user {
     align-self: flex-end;
     /* Align user messages to the right */
-    background-color: #2C2525;
-    color: #f0aaaa;;
+    background-color: #25282c;
+    color: #80b7ff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 0 20px;
-    padding: 12px;
+    padding: 12px 20px;
     margin: 8px 0;
     max-width: 80%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -191,25 +192,41 @@ body {
 #chat .bot {
     align-self: flex-start;
     /* Align bot messages to the left */
-    background-color: #1F1F1F;
-    color: #a093c7;
+    background-color: #25282c;
+    color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 20px 20px 20px 0;
-    padding: 12px;
+    padding: 12px 20px;
     margin: 8px 0;
     max-width: 80%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+#chat li {
+    margin-top: .6em;
+    line-height: 1.2em;
+}
+
+#chat strong {
+    color: #e0efff;
+}
+
+#chat li strong {
+    font-weight: normal !important;
+    color: #80b7ff;
+}
+
+/* #chat a {
+    color: rgb(233, 125, 255);
+    text-decoration: none;
+} */
+
 /* Code Formatting */
 .code-block {
-    background-color: #272727;
-    border: 1px solid #555;
     padding: 10px;
     overflow-x: auto;
     white-space: pre-wrap;
     border-radius: 12px;
-    color: #f8f8f2;
     font-family: monospace;
     font-size: 14px;
 }
@@ -223,29 +240,27 @@ body {
 
 .copy-button {
     position: absolute;
-    top: 5px;
-    right: 10px;
-    background-color: #070707;
-    color: #F59C38;
-    border: 1px solid #F59C38;
+    top: 5px; right: 5px;
+    background-color: #07070760;
+    color: #F59C3860;
+    border: 1px solid #F59C3860;
     border-radius: 4px;
-    padding: 5px 10px;
+    padding: 3px 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 10px;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     /* Subtle shadow for depth */
 }
 
 .copy-button:hover {
-    background-color: #F59C38;
-    color: #070707;
-    transform: scale(1.05);
+    background-color: #070707;
+    color: #F59C38;
+    border: 1px solid #F59C38;
     /* Slight scale effect on hover */
 }
 
 .copy-button:active {
-    color: #FFF;
     transform: scale(0.98);
     /* Slight scale effect when pressed */
 }
@@ -264,7 +279,6 @@ body {
 }
 
 @keyframes dots {
-
     0%,
     20% {
         content: '...';
@@ -291,7 +305,7 @@ body.light-theme {
 }
 
 body.light-theme #chat-container {
-    background-color: #f9f9f9; /* Light chat container */
+    background-color: #f5f5f5; /* Light chat container */
     border-color: #ddd;
 }
 
@@ -305,19 +319,22 @@ body.light-theme #chat .user {
 }
 
 body.light-theme #chat .bot {
-    background-color: #c3c3c3	;
+    background-color: #fff;
     color: #121212;
 }
 
-body.light-theme .code-block {
-    background-color: #f0f0f0;
-    border-color: #ccc;
-    color: #121212;
+body.light-theme .code-block-container {
+    border: 1px solid #ccc;
 }
 
 body.light-theme .copy-button {
+    color: #00000060;
+    background-color: #2979ff60;
+    border: none;
+}
+body.light-theme .copy-button:hover {
+    color: white;
     background-color: #2979ff;
-    color: #fff;
 }
 
 /* Scrollbar for Light Theme */
@@ -329,6 +346,14 @@ body.light-theme ::-webkit-scrollbar-track {
     background-color: #f0f0f0;
 }
 
+body.light-theme #chat strong {
+    color: #002f62;
+}
+
+body.light-theme #chat li strong {
+    font-weight: normal !important;
+    color: #006eff;
+}
 
 
 #file-icon{
@@ -354,8 +379,6 @@ body.light-theme ::-webkit-scrollbar-track {
     border: 1px solid #ddd;
     border-radius: 5px;
   }
-  
-  
   
   #remove-file {
     position: absolute;
